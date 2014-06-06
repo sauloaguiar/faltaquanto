@@ -7,5 +7,6 @@ public interface CourseFinder {
 	public List<Course> findAll();
 	public void addCourse(String course);
 	public List<Grade> getAllGradesByPosition(int position);
+	void addGrade(Grade grade, int courseIndex);
 	
 }

@@ -4,26 +4,43 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-	<TextView 
-	    android:layout_height="60dp"
-	    android:layout_width="wrap_content"
-	    android:text="Add Grade"
-	    />
-	
-	<EditText 
-	    android:id="@+id/addGradeName"
-	    android:layout_width="match_parent"
-	    android:layout_height="wrap_content"
-	    android:layout_marginTop="20dp"
-	    android:inputType="text"
-	    android:hint="teste one"/>
-	
-	<EditText 
-	    android:id="@+id/addGradeValue"
-	    android:layout_width="match_parent"
-	    android:layout_height="wrap_content"
-	    android:layout_marginTop="8dp"
-	    android:hint="5.0"/>
-	
-	
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:text="Add Grade" />
+
+    <EditText
+        android:id="@+id/addGradeName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:hint="teste one"
+        android:inputType="text" />
+
+    <EditText
+        android:id="@+id/addGradeValue"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:hint="5.0"
+        android:inputType="numberDecimal" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/cancelButtonGrade"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cancel" />
+
+        <Button
+            android:id="@+id/confirmButtonGrade"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Confirm" />
+    </LinearLayout>
+
 </LinearLayout>

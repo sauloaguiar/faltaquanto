@@ -2,7 +2,6 @@ package com.saulo.faltaquanto.adapter;
 
 import java.util.List;
 
-import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.RootContext;
@@ -35,8 +34,7 @@ public class CourseGradeListAdapter extends BaseAdapter {
 		this.position = pos;
 	}
 	
-	@AfterInject
-	void initAdapter(){
+	public void initAdapter(){
 		grades = finder.getAllGradesByPosition(position);
 	}
 	
@@ -67,6 +65,11 @@ public class CourseGradeListAdapter extends BaseAdapter {
 		itemView.bind(getItem(position));
 		
 		return itemView;
+	}
+
+	public void addGrade(Grade grade) {
+		finder.addGrade(grade, position);
+		notifyDataSetChanged();
 	}
 
 }

@@ -34,4 +34,9 @@ public class InMemoryCourseFinder implements CourseFinder {
 		return list.get(position).getGrades();
 	}
 
+	@Override
+	public void addGrade(Grade grade, int courseIndex) {
+		list.get(courseIndex).addGrade(grade);
+	}
+
 }

@@ -8,18 +8,19 @@ import org.androidannotations.annotations.Extra;
 import org.androidannotations.annotations.ItemClick;
 import org.androidannotations.annotations.ViewById;
 
-import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.view.LayoutInflater;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import com.saulo.faltaquanto.R;
 import com.saulo.faltaquanto.adapter.CourseGradeListAdapter;
+import com.saulo.faltaquanto.fragments.GradeDialogFragment.GradeListener;
+import com.saulo.faltaquanto.fragments.GradeDialogFragment_;
+import com.saulo.faltaquanto.model.Grade;
 
 @EActivity(R.layout.course_grades_list)
-public class GradeListActivity extends Activity {
+public class GradeListActivity extends FragmentActivity implements GradeListener{
 
 	@Extra("position")
 	int position;
@@ -36,6 +37,7 @@ public class GradeListActivity extends Activity {
 	@AfterViews
 	void bindAdapter(){
 		adapter.setPosition(position);
+		adapter.initAdapter();
 		gradeList.setAdapter(adapter);
 	}
 	
@@ -45,33 +47,17 @@ public class GradeListActivity extends Activity {
 	}
 	
 	void createDialog(){
-		// 1. Instantiate an AlertDialog.Builder with its constructor
-		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-		
-		LayoutInflater inflater = getLayoutInflater();
+		FragmentManager manager = getSupportFragmentManager();
+		GradeDialogFragment_ dialogFragment_ = new GradeDialogFragment_();
+		dialogFragment_.subscribe(this);
+		dialogFragment_.show(manager, "grade_dialog");
+	}
 
-		// 2. Chain together various setter methods to set the dialog characteristics
-		builder.setView(inflater.inflate(R.layout.course_grade_addition_dialog, null))
-				.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
-					
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						// TODO Auto-generated method stub
-						
-					}
-				})
-				.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-					
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						// TODO Auto-generated method stub
-						
-					}
-				});
-
-		// 3. Get the AlertDialog from create()
-		AlertDialog dialog = builder.create();
-		dialog.show();
+	@Override
+	public void onConfirmClicked(String grade, String value) {
+		Toast.makeText(this,  grade+ ": " + value, Toast.LENGTH_SHORT).show();
+		adapter.addGrade(new Grade(grade, Double.valueOf(value)));
+		adapter.notifyDataSetChanged();
 	}
 	
 }
