@@ -47,4 +47,11 @@ public class CourseListActivity extends Activity {
 			adapter.notifyDataSetChanged();
 		}
 	}
+	
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		adapter.notifyDataSetChanged();
+	}
 }

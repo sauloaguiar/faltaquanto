@@ -15,6 +15,7 @@ public class GradeItemView extends LinearLayout {
 
 	@ViewById TextView courseGradeItemLabel;
 	@ViewById TextView courseGradeItemValue;
+	@ViewById TextView courseGradeItemWeight;
 	
 	public GradeItemView(Context context) {
 		super(context);
@@ -23,6 +24,7 @@ public class GradeItemView extends LinearLayout {
 	public void bind(Grade grade) {
 		courseGradeItemLabel.setText(grade.getName());
 		courseGradeItemValue.setText(String.valueOf(grade.getValue()));
+		courseGradeItemWeight.setText(String.valueOf(grade.getWeight()));
 	}
 
 }

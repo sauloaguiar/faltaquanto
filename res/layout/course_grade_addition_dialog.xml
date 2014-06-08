@@ -1,34 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="?android:attr/listPreferredItemHeight"
     android:orientation="vertical" >
 
     <TextView
+        android:id="@+id/labelAddGrade"
         android:layout_width="wrap_content"
         android:layout_height="60dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
         android:text="Add Grade" />
 
+    <TextView 
+        android:id="@+id/labelAddGradeName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/labelAddGrade"
+        android:padding="6dp"
+        android:text="Grade name: "/>
+    
     <EditText
         android:id="@+id/addGradeName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_toRightOf="@id/labelAddGradeName"
+        android:layout_alignBaseline="@id/labelAddGradeName"
+        android:paddingRight="15dp"
         android:hint="teste one"
         android:inputType="text" />
 
+    <TextView 
+        android:id="@+id/labelAddGradeValue"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/labelAddGradeName"
+        android:padding="6dp"
+        android:text="Grade value: "/>
+    
     <EditText
         android:id="@+id/addGradeValue"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_toRightOf="@id/labelAddGradeValue"
+        android:layout_alignBaseline="@id/labelAddGradeValue"
+        android:paddingRight="15dp"
         android:hint="5.0"
         android:inputType="numberDecimal" />
+    
+    <TextView 
+        android:id="@+id/labelAddGradeWeight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/labelAddGradeValue"
+        android:padding="6dp"
+        android:text="Grade weight: "
+        />
+    
+    <EditText 
+        android:id="@+id/addGradeWeight"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/labelAddGradeWeight"
+        android:layout_alignBaseline="@id/labelAddGradeWeight"
+        android:paddingRight="15dp"
+        android:hint="3"
+        android:inputType="number"
+        />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal" >
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true">
 
         <Button
             android:id="@+id/cancelButtonGrade"
@@ -41,6 +88,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Confirm" />
-    </LinearLayout>
 
-</LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

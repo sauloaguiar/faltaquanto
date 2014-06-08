@@ -25,5 +25,18 @@
         android:textSize="20sp"
         android:paddingLeft="100dp"
         android:text="8.0" />
+    
+    <TextView 
+        android:id="@+id/courseGradeItemWeight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@id/courseGradeItemValue"
+       	android:layout_alignBottom="@id/courseGradeItemValue"
+       	android:layout_toRightOf="@id/courseGradeItemValue"
+       	android:textSize="20sp"
+       	android:paddingLeft="30dp"
+       	android:text="4"
+       	
+        />
 
 </RelativeLayout>

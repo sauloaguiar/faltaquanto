@@ -8,10 +8,10 @@ import org.androidannotations.annotations.Extra;
 import org.androidannotations.annotations.ItemClick;
 import org.androidannotations.annotations.ViewById;
 
+import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.saulo.faltaquanto.R;
 import com.saulo.faltaquanto.adapter.CourseGradeListAdapter;
@@ -31,7 +31,7 @@ public class GradeListActivity extends FragmentActivity implements GradeListener
 	
 	@Click(R.id.addGradeButton)
 	void click(){
-		createDialog();
+		createDialog(new Bundle());
 	}
 	
 	@AfterViews
@@ -42,22 +42,25 @@ public class GradeListActivity extends FragmentActivity implements GradeListener
 	}
 	
 	@ItemClick
-	void gradeListItemClicked(int position){
-		Toast.makeText(this, "pos: " + position, Toast.LENGTH_SHORT).show();
+	void gradeListItemClicked(Grade grade){
+		Bundle data = new Bundle();
+		data.putString("name", grade.getName());
+		data.putString("grade", String.valueOf(grade.getValue()));
+		data.putString("weight", String.valueOf(grade.getWeight()));
+		createDialog(data);
 	}
 	
-	void createDialog(){
+	void createDialog(Bundle data){
 		FragmentManager manager = getSupportFragmentManager();
 		GradeDialogFragment_ dialogFragment_ = new GradeDialogFragment_();
+		dialogFragment_.setArguments(data);
 		dialogFragment_.subscribe(this);
 		dialogFragment_.show(manager, "grade_dialog");
 	}
 
 	@Override
-	public void onConfirmClicked(String grade, String value) {
-		Toast.makeText(this,  grade+ ": " + value, Toast.LENGTH_SHORT).show();
-		adapter.addGrade(new Grade(grade, Double.valueOf(value)));
-		adapter.notifyDataSetChanged();
+	public void onConfirmClicked(String grade, String value, String weight) {
+		adapter.addGrade(new Grade(grade, Double.valueOf(value), Double.valueOf(weight)));
 	}
 	
 }

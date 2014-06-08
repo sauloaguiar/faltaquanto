@@ -18,14 +18,18 @@ public class Course {
 	}
 
 	public double getAverage() {
+		calculateAverage();
+		return average;
+	}
+
+	private void calculateAverage() {
 		double accumulator = 0.0;
-		double weight = 1.0;
+		double weight = 0.0;
 		for (Grade g : grades) {
 			accumulator += g.getValue() * g.getWeight();
 			weight += g.getWeight();
 		}
 		average = accumulator/weight;
-		return average;
 	}
 
 	public void setAverage(double average) {
@@ -40,7 +44,6 @@ public class Course {
 		this.grades = grades;
 	}
 
-
 	public Course(String courseName) {
 		name = courseName;
 		this.grades = new ArrayList<Grade>();
@@ -53,6 +56,10 @@ public class Course {
 	}
 
 	public void addGrade(Grade grade) {
+		if (this.grades.contains(grade)) {
+			grades.remove(grade);
+		} 
 		this.grades.add(grade);
+		calculateAverage();
 	}
 }
