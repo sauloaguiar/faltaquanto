@@ -39,4 +39,14 @@ public class InMemoryCourseFinder implements CourseFinder {
 		list.get(courseIndex).addGrade(grade);
 	}
 
+	@Override
+	public void addExtraToGrade(Extra extra, int position) {
+		list.get(position).getGrades().get(0).addExtra(extra);
+	}
+
+	@Override
+	public void deleteGrade(int courseIndex, int gradeIndex) {
+		list.get(courseIndex).getGrades().remove(gradeIndex);
+	}
+
 }

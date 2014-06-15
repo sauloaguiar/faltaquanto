@@ -6,6 +6,7 @@ import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.Extra;
 import org.androidannotations.annotations.ItemClick;
+import org.androidannotations.annotations.ItemLongClick;
 import org.androidannotations.annotations.ViewById;
 
 import android.os.Bundle;
@@ -16,11 +17,13 @@ import android.widget.ListView;
 import com.saulo.faltaquanto.R;
 import com.saulo.faltaquanto.adapter.CourseGradeListAdapter;
 import com.saulo.faltaquanto.fragments.GradeDialogFragment.GradeListener;
+import com.saulo.faltaquanto.fragments.GradeDialogOptionsFragment.GradeOptionsListener;
 import com.saulo.faltaquanto.fragments.GradeDialogFragment_;
+import com.saulo.faltaquanto.fragments.GradeDialogOptionsFragment_;
 import com.saulo.faltaquanto.model.Grade;
 
 @EActivity(R.layout.course_grades_list)
-public class GradeListActivity extends FragmentActivity implements GradeListener{
+public class GradeListActivity extends FragmentActivity implements GradeListener, GradeOptionsListener{
 
 	@Extra("position")
 	int position;
@@ -39,6 +42,17 @@ public class GradeListActivity extends FragmentActivity implements GradeListener
 		adapter.setPosition(position);
 		adapter.initAdapter();
 		gradeList.setAdapter(adapter);
+	}
+	
+	@ItemLongClick
+	void gradeListItemLongClicked(int position){
+		FragmentManager manager = getSupportFragmentManager();
+		GradeDialogOptionsFragment_ d = new GradeDialogOptionsFragment_();
+		Bundle data = new Bundle();
+		data.putInt("position", position);
+		d.setArguments(data);
+		d.subscribe(this);
+		d.show(manager, "");
 	}
 	
 	@ItemClick
@@ -61,6 +75,16 @@ public class GradeListActivity extends FragmentActivity implements GradeListener
 	@Override
 	public void onConfirmClicked(String grade, String value, String weight) {
 		adapter.addGrade(new Grade(grade, Double.valueOf(value), Double.valueOf(weight)));
+	}
+
+	@Override
+	public void onExtraPointAdded(com.saulo.faltaquanto.model.Extra extra) {
+		adapter.addExtraToGrade(extra);
+	}
+
+	@Override
+	public void onDeleteSelected(int position) {
+		adapter.deleteGrade(position);
 	}
 	
 }

@@ -8,5 +8,7 @@ public interface CourseFinder {
 	public void addCourse(String course);
 	public List<Grade> getAllGradesByPosition(int position);
 	void addGrade(Grade grade, int courseIndex);
+	public void addExtraToGrade(Extra extra, int position);
+	public void deleteGrade(int courseIndex, int gradeIndex);
 	
 }

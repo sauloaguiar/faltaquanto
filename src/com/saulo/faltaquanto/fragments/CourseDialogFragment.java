@@ -1,22 +1,19 @@
-package com.saulo.faltaquanto.activities;
+package com.saulo.faltaquanto.fragments;
 
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.Click;
-import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
-import org.androidannotations.annotations.WindowFeature;
 
-import android.app.Activity;
-import android.view.Window;
+import android.support.v4.app.DialogFragment;
 import android.widget.EditText;
 
 import com.saulo.faltaquanto.R;
 import com.saulo.faltaquanto.model.CourseFinder;
 import com.saulo.faltaquanto.model.InMemoryCourseFinder;
 
-@WindowFeature(Window.FEATURE_NO_TITLE)
-@EActivity(R.layout.create_course_dialog)
-public class CreateCourseDialogActivity extends Activity {
+@EFragment(R.layout.create_course_dialog)
+public class CourseDialogFragment extends DialogFragment {
 
 	@Bean(InMemoryCourseFinder.class)
 	CourseFinder finder;
@@ -24,16 +21,25 @@ public class CreateCourseDialogActivity extends Activity {
 	@ViewById(R.id.createCourseDialogInput)
 	EditText disciplineName;
 	
+	CourseListener courseListener;
+	
 	@Click(R.id.createCourseDialogButtonNo)
 	public void no(){
-		finish();
+		dismiss();
 	}
 	
 	@Click(R.id.createCourseDialogButtonYes)
 	public void yes(){
-		finder.addCourse(disciplineName.getText().toString());
-		setResult(RESULT_OK, null);
-		finish();
+		courseListener.onConfirmClicked(disciplineName.getText().toString());
+		dismiss();
+	}
+	
+	public void subscribe(CourseListener listener){
+		this.courseListener = listener;
+	}
+	
+	public interface CourseListener {
+		public void onConfirmClicked(String course);
 	}
 	
 }

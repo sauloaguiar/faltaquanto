@@ -5,21 +5,29 @@ import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ItemClick;
-import org.androidannotations.annotations.OnActivityResult;
+import org.androidannotations.annotations.ItemLongClick;
+import org.androidannotations.annotations.OptionsItem;
+import org.androidannotations.annotations.OptionsMenu;
 import org.androidannotations.annotations.ViewById;
 
-import android.app.Activity;
 import android.content.Intent;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.saulo.faltaquanto.R;
 import com.saulo.faltaquanto.adapter.CourseListAdapter;
+import com.saulo.faltaquanto.fragments.CourseDialogFragment.CourseListener;
+import com.saulo.faltaquanto.fragments.CourseDialogFragment_;
+import com.saulo.faltaquanto.model.Course;
 
 @EActivity(R.layout.course_list)
-public class CourseListActivity extends Activity {
+@OptionsMenu(R.menu.main)
+public class CourseListActivity extends FragmentActivity implements CourseListener{
 	
-	private static final int REQUEST_CODE = 1;
-
 	@ViewById ListView courseList;
 	
 	@Bean CourseListAdapter adapter;
@@ -36,22 +44,55 @@ public class CourseListActivity extends Activity {
 		startActivity(data);
 	}
 	
-	@Click(R.id.addCourseButton)
-	void addCourseButtonClicked(){
-		startActivityForResult(new Intent(this, CreateCourseDialogActivity_.class), REQUEST_CODE);
+	@ItemLongClick
+	void courseListItemLongClicked(Course course){
+		Toast.makeText(getApplicationContext(), "Long Clicked", Toast.LENGTH_SHORT).show();
 	}
 	
-	@OnActivityResult(REQUEST_CODE)
-	protected void onActivityResult(int resultCode) {
-		if (resultCode == RESULT_OK) {
-			adapter.notifyDataSetChanged();
+	@Click(R.id.addCourseButton)
+	void addCourseButtonClicked(){
+		FragmentManager manager = getSupportFragmentManager();
+		CourseDialogFragment_ courseDialogFragment_ = new CourseDialogFragment_();
+		courseDialogFragment_.subscribe(this);
+		courseDialogFragment_.show(manager, "course_dialog");
+	}
+	
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// TODO Auto-generated method stub
+		return super.onCreateOptionsMenu(menu);
+	}
+		// Associate searchable configuration with the SearchView
+		/*SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+		SearchView searchView = (SearchView) menu.findItem(R.id.searchCourse).getActionView();
+		searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));*/
+	
+	@OptionsItem
+	void removeCourse(){
+		Toast.makeText(getApplicationContext(), "Clicked", Toast.LENGTH_SHORT).show();
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case R.id.removeCourse:
+		
+			break;
+		default:
+			break;
 		}
+		return super.onOptionsItemSelected(item);
 	}
 	
 	@Override
 	protected void onResume() {
-		// TODO Auto-generated method stub
 		super.onResume();
 		adapter.notifyDataSetChanged();
+	}
+
+	@Override
+	public void onConfirmClicked(String course) {
+		adapter.addCourse(new Course(course));
 	}
 }

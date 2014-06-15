@@ -1,21 +1,27 @@
 package com.saulo.faltaquanto.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Grade {
 
 	private String name;
 	private double value;
 	private double weight;
+	private List<Extra> extras;
 
 	public Grade(String name, Double value, Double weight) {
 		this.name = name;
 		this.value = value;
 		this.weight = weight;
+		this.extras = new ArrayList<Extra>();
 	}
 
 	public Grade(String name, double value) {
 		this.name = name;
 		this.value = value;
 		this.weight = 1.0;
+		this.extras = new ArrayList<Extra>();
 	}
 
 	public String getName() {
@@ -41,6 +47,10 @@ public class Grade {
 	public void setWeight(double weight) {
 		this.weight = weight;
 	}
+	
+	public void addExtra(Extra extra){
+		this.extras.add(extra);
+	}
 
 	@Override
 	public int hashCode() {
@@ -65,5 +75,9 @@ public class Grade {
 		} else if (!name.equals(other.name))
 			return false;
 		return true;
+	}
+
+	public boolean hasPresence() {
+		return this.extras.size() > 0;
 	}
 }

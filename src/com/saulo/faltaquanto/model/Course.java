@@ -1,5 +1,6 @@
 package com.saulo.faltaquanto.model;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,9 +18,10 @@ public class Course {
 		this.name = name;
 	}
 
-	public double getAverage() {
+	public String getAverage() {
 		calculateAverage();
-		return average;
+		DecimalFormat df = new DecimalFormat("#.00");
+		return df.format(average);
 	}
 
 	private void calculateAverage() {

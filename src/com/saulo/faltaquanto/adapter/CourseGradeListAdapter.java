@@ -72,4 +72,14 @@ public class CourseGradeListAdapter extends BaseAdapter {
 		notifyDataSetChanged();
 	}
 
+	public void addExtraToGrade(com.saulo.faltaquanto.model.Extra extra) {
+		finder.addExtraToGrade(extra, position);
+		notifyDataSetChanged();
+	}
+
+	public void deleteGrade(int gradeIndex) {
+		finder.deleteGrade(position, gradeIndex);
+		notifyDataSetChanged();
+	}
+
 }

@@ -63,4 +63,9 @@ public class CourseListAdapter extends BaseAdapter {
 		return itemView;
 	}
 
+	public void addCourse(Course course) {
+		courses.add(course);
+		notifyDataSetChanged();
+	}
+
 }
